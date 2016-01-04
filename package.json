@@ -1,0 +1,42 @@
+{
+  "name": "uipack",
+  "version": "0.0.1",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yu-ichiko/uipack.git"
+  },
+  "author": {
+    "name": "yu.ichiko",
+    "email": "yu.ichiko@gmail.com"
+  },
+  "keywords": [
+    "javascript",
+    "browser",
+    "library",
+    "webpack",
+    "riot.js"
+  ],
+  "scripts": {
+    "clean": "node_modules/.bin/rimraf dist/",
+    "start": "node_modules/.bin/webpack-dev-server --inline --hot",
+    "build": "node_modules/.bin/webpack",
+    "test": "node_modules/.bin/eslint src/**/*.js; node_modules/.bin/mocha --require intelli-espower-loader test/**/*.js",
+    "test:lint": "node_modules/.bin/eslint src/**/*.js"
+  },
+  "main": "dist/uipack.js",
+  "dependencies": {
+    "director": "^1.2.8",
+    "eslint": "^1.10.3",
+    "intelli-espower-loader": "^1.0.1",
+    "jquery": "^2.1.4",
+    "lodash": "^3.10.1",
+    "mocha": "^2.3.4",
+    "power-assert": "^1.2.0",
+    "rimraf": "^2.5.0",
+    "riot": "^2.3.12",
+    "riotjs-loader": "^1.2.0",
+    "webpack": "^1.12.9",
+    "webpack-dev-server": "^1.14.0"
+  }
+}

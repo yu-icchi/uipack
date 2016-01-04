@@ -1,0 +1,21 @@
+{
+  "rules": {
+    "indent": [2, 2],
+    "quotes": [2, "single"],
+    "linebreak-style": [2, "unix"],
+    "semi": [2, "always"],
+    "no-console": 2,
+    "no-debugger": 2,
+    "callback-return": [2, ["callback", "cb", "next"]]
+  },
+  "env": {
+    "browser": true,
+    "amd": true,
+    "node": true,
+    "mocha": true
+  },
+  "globals": {
+    "riot": true
+  },
+  "extends": "eslint:recommended"
+}
