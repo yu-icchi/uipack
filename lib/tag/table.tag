@@ -1,7 +1,7 @@
 <!-- uipack-table -->
 
 <uipack-table>
-    <table>
+    <table class="table">
         <caption>{ title }</caption>
         <thead>
             <tr>
@@ -17,7 +17,7 @@
         </tbody>
     </table>
 
-    <script>
+    <script type="text/javascript">
         this.title = opts.title;
         this.rows = opts.rows;
         this.data = opts.data;

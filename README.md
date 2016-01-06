@@ -24,6 +24,7 @@ core機能はTypeScriptを使用して開発する
 - coreなモジュールはTypeScriptで記述する(これは努力目標かも)
 - webpack
 - riot.js
+- tv4
 - jquery
 - stylus
 - eslint
@@ -36,6 +37,8 @@ viewのレイアウトcomponentにriot.jsを用いてカスタムタグを作る
 カスタムタグは外部からも読み込みできるように設計すること
 
 CSSのデザインは`stylus`で行う
+
+ファイル名の命名規則はスネークケースで記述する
 
 ## Layout Schema Specification
 
@@ -72,6 +75,29 @@ view部分はHTMLでの表示レイアウト部分を記述する
         title: 'GENDER',
         type: 'string',
         enum: ['male', 'female']
+      },
+      list: {
+        type: 'array',
+        items: {
+          title: 'ITEMS',
+          type: 'string'
+        }
+      },
+      multiple: {
+        type: 'array',
+        items: {
+          type: 'object',
+          properties: {
+            test01: {
+              title: 'TEST01',
+              type: 'string'
+            },
+            test02: {
+              title: 'TEST02',
+              type: 'string'
+            }
+          }
+        }
       }
     },
     required: [
@@ -83,26 +109,32 @@ view部分はHTMLでの表示レイアウト部分を記述する
   form: {
     title: '',
     action: 'POST:/collection/user',
-    input: {
-      _id: {
+    inputs: [
+      {
+        key: '_id',
         type: 'text', // フォームのタイプ(textの場合は省略可能にする)
         label: '', // なければスキーマのタイトルが使用される
         helper: '', // ヘルプを記述する。この設定が無いっていると自動的に入力フォームの下に入る
         onXXX: function(e) { // JSで発火するイベントを設定するとその内容を取得できる
         },
-        validation: function(data) { // カスタムバリデーションを作成できる
+        validate: function(data) { // カスタムバリデーションを作成できる
           return true; // booleanを返す用にする(判定側はbooleanで判定してしまう)
-        }
+        },
+        value: '' // デフォルトの値
       },
-      name: {
+      {
+        key: 'name',
         type: 'text',
         placeholder: '', // プレースホルダ(Form内にサンプルを記述しておく)
         helper: '' // ヘルプ
       },
-      gender: {
+      {
+        key: 'gender',
         type: 'select'
-      }
-    }
+      },
+      'list',
+      'multiple'
+    ]
   },
   view: {
     layout: '',
@@ -118,12 +150,22 @@ view部分はHTMLでの表示レイアウト部分を記述する
     // テープル表示させるときに配列で表示順番を決める
     table: {
       title: 'ユーザのテーブル情報', // キャプションの設定
-      template: '<uipack-table>{{rows}}</uipack-table>', // テーブルのstyleなどを指定することができる
+      // ボタングループ
+      btnGroup: [
+        {
+          type: 'add', // 入力タイプ
+          layout: 'left' // テーブルの配置場所
+        },
+        {
+          type: 'delete', // 削除タイプ
+          layout: 'rigth' // テーブルの配置場所
+        }
+      ],
       // テーブルの列を定義する
       rows: [
         {
           key: '_id', // データから取得するキーを指定する
-          template: '<uipack-image id={{this}}></uipack-image>' // riot.jsでカスタムコンポーネントを作成し使用する
+          template: '{{image this}}'
         },
         {
           key: '_id'
@@ -133,14 +175,11 @@ view部分はHTMLでの表示レイアウト部分を記述する
         },
         {
           key: 'gender',
-          template: '<uipack-gender>{{this}}</uipack-gender>'
+          template: '{{gener this}}'
         },
         {
           keys: ['_id', 'name'], // keysに指定した場合はオブジェクト型になり
           template: 'ID: {{_id}} NAME: {{name}}'
-        },
-        {
-          template: '<uipack-btn-group></uipack-btn-group>'
         }
       ]
     }
@@ -150,6 +189,7 @@ view部分はHTMLでの表示レイアウト部分を記述する
 
 ## ROADMAP
 
+- riot.jsによるCustomTagのサポートを入れる
 - JSON対応
 - YAML対応
 

@@ -2,7 +2,7 @@
 
     <p>Seconds Elapsed: { time }</p>
 
-    <script>
+    <script type="text/javascript">
         var self = this;
 
         this.time = opts.start || 0;
