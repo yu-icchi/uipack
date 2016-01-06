@@ -2,10 +2,10 @@ var _ = require('lodash');
 var $ = require('jquery');
 var tv4 = require('tv4');
 
-<uipack-input>
+<uipack-textarea>
     <div class="form-group">
         <label if={title} class="control-label" for={opts.key}>{title}</label>
-        <input class="form-control" id={opts.key} type={type} placeholder={placeholder} value={value} onkeyup={validate}>
+        <textarea class="form-control" id={opts.key} placeholder={placeholder} rows="3" onkeyup={validate}></textarea>
         <span if={help} class="help-block" id={'hele-' + opts.key}>{help || ''}</span>
     </div>
 
@@ -13,24 +13,15 @@ var tv4 = require('tv4');
         var key = opts.key;
         var schema = opts.schema.properties[key];
         var input = opts.input[key];
-        // console.log('[uipack-input]', key, input, schema);
-
-        this.type = input.type;
-        if (!this.type) {
-            this.type = (schema.type === 'integer' || schema.type === 'number') ? 'number' : 'text';
-        }
+        console.log('[uipack-textarea]', key, input, schema);
 
         this.title = input.title || schema.title || key || '';
         this.help = input.help || '';
         this.placeholder = input.placeholder || '';
-        this.value = input.value || '';
 
         var customValidate = _.isFunction(input.validate) ? input.validate : function() {return true;};
         this.validate = function(e) {
             var value = e.target.value;
-            if (schema.type === 'integer' || schema.type === 'number') {
-                value = Number(value);
-            }
             var cvalid = customValidate(value);
             var svalid = tv4.validate(value, schema);
             if (cvalid && svalid) {
@@ -40,4 +31,4 @@ var tv4 = require('tv4');
             }
         };
     </script>
-</uipack-input>
+</uipack-textarea>

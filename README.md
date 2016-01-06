@@ -130,7 +130,11 @@ view部分はHTMLでの表示レイアウト部分を記述する
       },
       {
         key: 'gender',
-        type: 'select'
+        help: '性別指定してね',
+        label: {
+          male: '男性',
+          female: '女性'
+        }
       },
       'list',
       'multiple'
