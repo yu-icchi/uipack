@@ -5,7 +5,9 @@ module.exports = {
   entry: './lib/uipack.js',
   output: {
     path: __dirname + '/public',
-    filename: 'uipack.js'
+    filename: 'uipack.js',
+    library: 'UIPack',
+    libraryTarget: 'umd'
   },
   plugins: [
     new ProvidePlugin({
@@ -17,13 +19,13 @@ module.exports = {
   ],
   module: {
     preLoaders: [
-      {test: /\.tag$/, exclude: /node_modules/, loader: 'riotjs-loader', query: {type: 'none'}},
-      {test: /bootstrap\/js\//, loader: 'imports?jQuery=jquery'},
-      {test: /\.woff(\?v=\d+\.\d+\.\d+)?$/, loader: 'url?limit=10000&mimetype=application/font-woff'},
-      {test: /\.woff2(\?v=\d+\.\d+\.\d+)?$/, loader: 'url?limit=10000&mimetype=application/font-woff2'},
-      {test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/, loader: 'url?limit=10000&mimetype=application/octet-stream'},
-      {test: /\.eot(\?v=\d+\.\d+\.\d+)?$/, loader: 'file'},
-      {test: /\.svg(\?v=\d+\.\d+\.\d+)?$/, loader: 'url?limit=10000&mimetype=image/svg+xml'}
+      { test: /\.tag$/, exclude: /node_modules/, loader: 'riotjs-loader', query: { type: 'none' } }
+    ],
+    loaders: [
+      { test: /\.js$|\.tag$/, exclude: /node_modules/, loader: 'babel-loader' },
+      { test: /\.json$/, exclude: /node_modules/, loader: 'json-loader' },
+      { test: /\.html$/, loader: 'html-loader' },
+      { test: /\.hbs/, loader: 'handlebars-template-loader' }
     ]
   },
   devServer: {

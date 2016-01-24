@@ -20,16 +20,16 @@ var form = require('../form');
         });
 
         this.submit = function() {
-            console.log('[uipack-formspecs]', 'submit');
+            // console.log('[uipack-formspecs]', 'submit');
         };
         this.on('update', function() {
-            console.log('[uipack-formspecs]', 'update');
+            // console.log('[uipack-formspecs]', 'update');
             $('#formspecs').empty();
         });
         this.on('updated', function() {
-            console.log('[uipack-formspecs]', 'updated');
+            // console.log('[uipack-formspecs]', 'updated');
             $('#formspecs').html(html);
-            riot.mount(
+            riot.mount('uipack-array, ' +
                 'uipack-input, uipack-textarea, uipack-radio, uipack-checkbox, uipack-select, uipack-error',{
                 input: inputMap,
                 schema: schema

@@ -21,6 +21,6 @@
         this.title = opts.title;
         this.rows = opts.rows;
         this.data = opts.data;
-        console.log('[uipack-table]', this.title, this.rows, this.data);
+        // console.log('[uipack-table]', this.title, this.rows, this.data);
     </script>
 </uipack-table>

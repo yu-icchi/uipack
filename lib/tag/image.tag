@@ -9,7 +9,7 @@ var _ = require('lodash');
         this.path = 'img/';
         this.path += (opts.id || '').replace('-', '/');
         this.path += '.png';
-        console.log('lodash', _.isString(0));
-        console.log('uipack-image', opts.id, this.path);
+        // console.log('lodash', _.isString(0));
+        // console.log('uipack-image', opts.id, this.path);
     </script>
 </uipack-image>

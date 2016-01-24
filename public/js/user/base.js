@@ -1,5 +1,4 @@
-
-module.exports = {
+SCENES_TEMPLATE = {
   group: 'user',
   path: 'user/base/:_id', // インナーパス
   schema: { // 双方向のデータ形式
@@ -19,19 +18,15 @@ module.exports = {
         type: 'string',
         enum: ['male', 'female']
       },
-      gender2: {
-        title: 'GENDER2',
-        type: 'array',
-        enum: ['male', 'female']
-      },
       type: {
         title: 'USER TYPE',
         type: 'integer',
-        enum: [0, 1, 2, 3]
+        enum: [0, 1, 2, 3],
+        description: 'ユーザのタイプ、0:通常、1:NPC、2:スタッフ、3:芸能人'
       },
       age: {
         title: 'AGE',
-        type: 'integer'
+        type: 'number'
       },
       list: {
         type: 'array',
@@ -84,21 +79,13 @@ module.exports = {
         type: 'text', // フォームのタイプ(textの場合は省略可能にする)
         title: 'らべる', // なければスキーマのタイトルが使用される
         placeholder: 'プレースホルダ',
-        help: 'help message', // ヘルプを記述する。この設定が無いっていると自動的に入力フォームの下に入る
-        validate: function(data) { // カスタムバリデーションを作成できる
-          console.log('カスタムバリデーション関数', data);
-          return !/-/.test(data); // booleanを返す用にする(判定側はbooleanで判定してしまう)
-        }
+        help: 'help message' // ヘルプを記述する。この設定が無いっていると自動的に入力フォームの下に入る
       },
       {
         key: 'name',
         type: 'textarea',
         placeholder: '120文字', // プレースホルダ(Form内にサンプルを記述しておく)
-        help: 'おーなーまーえー', // ヘルプ
-        validate: function(data) { // カスタムバリデーションを作成できる
-          console.log('カスタムバリデーション関数', data);
-          return !/-/.test(data); // booleanを返す用にする(判定側はbooleanで判定してしまう)
-        }
+        help: 'おーなーまーえー' // ヘルプ
       },
       {
         key: 'gender',
@@ -111,7 +98,6 @@ module.exports = {
       {
         key: 'type',
         type: 'select',
-        help: 'ユーザタイプ',
         label: {
           0: '一般人',
           1: 'NPC',
@@ -122,17 +108,6 @@ module.exports = {
       {
         key: 'age',
         value: 100
-      },
-      {
-        key: 'gender2',
-        help: 'ベルモット',
-        label: {
-          male: '男性',
-          female: '女性'
-        }
-      },
-      {
-        key: 'list'
       }
     ]
   },

@@ -21,13 +21,13 @@ core機能はTypeScriptを使用して開発する
 
 ### dependency
 
-- coreなモジュールはTypeScriptで記述する(これは努力目標かも)
 - webpack
 - riot.js
 - tv4
 - jquery
 - stylus
 - eslint
+- ES6(ES2015)
 
 viewのレイアウトcomponentにriot.jsを用いてカスタムタグを作る。
 そして、handlebarsで繰り返しなどの制御系を行う
@@ -40,7 +40,89 @@ CSSのデザインは`stylus`で行う
 
 ファイル名の命名規則はスネークケースで記述する
 
-## Layout Schema Specification
+node.jsのExpress風(connect風)のuseなどでのlayer構成にする
+
+コーディングはES6で記述して勉強にする
+
+## Library
+
+webpackのUMD(Universal Module Definition)でライブラリを公開する
+
+Endpoint: UIPack
+
+### API
+
+##### UIPack.addPack([path:string,] schema:Object [,type:string])
+
+`type:string`の設定方法に`JSON`or`YAML`と記述する
+
+1画面の構成を加える
+
+##### UIPack.addValidate(key:string, callback:Function)
+
+##### UIPack.set(options)
+
+`hashbang:string`ハッシュ値の設定
+
+##### UIPack.use([path:string,] function)
+
+urlのhashchangeイベントを受けてから順番に`use`していく
+
+##### UIPack.Router([options])
+
+`router.on`で記述してパスのルーティング処理を行うことができる
+
+##### UIPack.start
+
+### EXAMPLE
+
+```javascript
+<script src="uipack.js"></script>
+<script type="text/javascript">
+// 1画面の内容を追加する
+UIPack.addPack({
+  "Layout Schema JSON"
+});
+UIPack.addPack({
+  "Layout Schema JSON"
+});
+
+// カスタムバリデーションを追加する
+UIPack.addValidate('custom-validate', function(data) {
+  return !/-/.test(data);
+})
+
+// ハッシュURLの記号設定
+UIPack.set({hashbang: '#!'});
+
+// 個別のURLルーティングを設定する
+var router = UIPack.Router([options]);
+router.on('/user/:_id', function(params, next) {
+  // params._id
+  // params.query.key
+  next();
+});
+router.on('/area/:_id', function(params, next) {
+  next();
+});
+
+// レイヤー構造で調べる
+UIPack.use(function(next) {
+  // riot.jsでいうupdateの処理部分を行う
+  next();
+});
+UIPack.use(router);
+UIPack.use(function(next) {
+  // riot.jsでいうupdatedの処理部分を行う
+  next();
+});
+
+// 開始
+UIPack.start();
+</script>
+```
+
+## Pack Layout Schema Specification
 
 レイアウト用のスキーマ設定
 
@@ -106,65 +188,81 @@ view部分はHTMLでの表示レイアウト部分を記述する
       'gender'
     ]
   },
-  form: {
-    title: '',
-    action: 'POST:/collection/user',
-    inputs: [
-      {
-        key: '_id',
-        type: 'text', // フォームのタイプ(textの場合は省略可能にする)
-        label: '', // なければスキーマのタイトルが使用される
-        helper: '', // ヘルプを記述する。この設定が無いっていると自動的に入力フォームの下に入る
-        onXXX: function(e) { // JSで発火するイベントを設定するとその内容を取得できる
+  forms: {
+    save: {
+      title: '',
+      action: 'POST:/collection/user',
+      inputs: [
+        {
+          key: '_id',
+          type: 'text', // フォームのタイプ(textの場合は省略可能にする)
+          title: '', // なければスキーマのタイトルが使用される
+          helper: '', // ヘルプを記述する。この設定が無いっていると自動的に入力フォームの下に入る
+          validate: 'custom-validate', // カスタムバリデーションの名前
+          value: '' // デフォルトの値
         },
-        validate: function(data) { // カスタムバリデーションを作成できる
-          return true; // booleanを返す用にする(判定側はbooleanで判定してしまう)
+        {
+          key: 'name',
+          type: 'text',
+          placeholder: '', // プレースホルダ(Form内にサンプルを記述しておく)
+          helper: '' // ヘルプ
         },
-        value: '' // デフォルトの値
-      },
-      {
-        key: 'name',
-        type: 'text',
-        placeholder: '', // プレースホルダ(Form内にサンプルを記述しておく)
-        helper: '' // ヘルプ
-      },
-      {
-        key: 'gender',
-        help: '性別指定してね',
-        label: {
-          male: '男性',
-          female: '女性'
+        {
+          key: 'gender',
+          help: '性別指定してね',
+          label: {
+            male: '男性',
+            female: '女性'
+          }
+        },
+        {
+          key: 'list'
+        },
+        {
+          key: 'multiple'
         }
-      },
-      'list',
-      'multiple'
-    ]
+      ]
+    },
+    delete: {
+      title: '',
+      action: 'DELETE:/collection/user',
+      inputs: [
+        {
+          key: '_id',
+          title: '',
+          readonly: true
+        }
+      ]
+    }
   },
   view: {
+    el: '#main', // jquery的なelementの指定の仕方
     layout: '',
     search: {
       title: 'ユーザ検索をする',
       action: 'GET:/search/user/:_id',
-      input: {
-        _id: {
-          type: 'text'
+      inputs: [
+        {
+          key: '_id'
         }
-      }
+      ]
+    },
+    create: {
+      title: '新規作成',
+      btn: 'save'
     },
     // テープル表示させるときに配列で表示順番を決める
     table: {
       title: 'ユーザのテーブル情報', // キャプションの設定
       // ボタングループ
-      btnGroup: [
-        {
-          type: 'add', // 入力タイプ
-          layout: 'left' // テーブルの配置場所
-        },
-        {
-          type: 'delete', // 削除タイプ
-          layout: 'rigth' // テーブルの配置場所
-        }
-      ],
+      btn_group: {
+        left: [
+          'save'
+        ],
+        right: [
+          'delete'
+        ]
+      },
       // テーブルの列を定義する
       rows: [
         {

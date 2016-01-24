@@ -13,7 +13,7 @@
         var key = opts.key;
         var schema = opts.schema.properties[key];
         var input = opts.input[key];
-        console.log('[uipack-checkbox]', key, input, schema);
+        // console.log('[uipack-checkbox]', key, input, schema);
 
         this.title = input.title || schema.title || key || '';
         this.help = input.help || '';

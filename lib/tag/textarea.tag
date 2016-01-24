@@ -13,7 +13,7 @@ var tv4 = require('tv4');
         var key = opts.key;
         var schema = opts.schema.properties[key];
         var input = opts.input[key];
-        console.log('[uipack-textarea]', key, input, schema);
+        // console.log('[uipack-textarea]', key, input, schema);
 
         this.title = input.title || schema.title || key || '';
         this.help = input.help || '';
