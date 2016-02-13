@@ -191,7 +191,7 @@ view部分はHTMLでの表示レイアウト部分を記述する
   forms: {
     save: {
       title: '',
-      action: 'POST:/collection/user',
+      endpoint: 'POST:/collection/user',
       inputs: [
         {
           key: '_id',
@@ -225,7 +225,7 @@ view部分はHTMLでの表示レイアウト部分を記述する
     },
     delete: {
       title: '',
-      action: 'DELETE:/collection/user',
+      endpoint: 'DELETE:/collection/user',
       inputs: [
         {
           key: '_id',
@@ -237,54 +237,57 @@ view部分はHTMLでの表示レイアウト部分を記述する
   },
   view: {
     el: '#main', // jquery的なelementの指定の仕方
-    layout: '',
-    search: {
-      title: 'ユーザ検索をする',
-      action: 'GET:/search/user/:_id',
-      inputs: [
-        {
-          key: '_id'
-        }
-      ]
-    },
-    create: {
-      title: '新規作成',
-      btn: 'save'
-    },
-    // テープル表示させるときに配列で表示順番を決める
-    table: {
-      title: 'ユーザのテーブル情報', // キャプションの設定
-      // ボタングループ
-      btn_group: {
-        left: [
-          'save'
-        ],
-        right: [
-          'delete'
+    components: [
+      {
+        key: 'search',
+        title: 'ユーザ検索をする',
+        endpoint: 'GET:/search/user/:_id',
+        inputs: [
+          {
+            key: '_id'
+          }
         ]
       },
-      // テーブルの列を定義する
-      rows: [
-        {
-          key: '_id', // データから取得するキーを指定する
-          template: '{{image this}}'
+      {
+        key: 'create',
+        btn: 'save'
+      },
+      {
+        key: 'table',
+        endpoint: 'GET:/user/list/:_id',
+        title: 'ユーザのテーブル情報', // キャプションの設定
+        // ボタングループ
+        btn_group: {
+          left: [
+            'save'
+          ],
+          right: [
+            'delete'
+          ]
         },
-        {
-          key: '_id'
-        },
-        {
-          key: 'name'
-        },
-        {
-          key: 'gender',
-          template: '{{gener this}}'
-        },
-        {
-          keys: ['_id', 'name'], // keysに指定した場合はオブジェクト型になり
-          template: 'ID: {{_id}} NAME: {{name}}'
-        }
-      ]
-    }
+        // テーブルの列を定義する
+        rows: [
+          {
+            key: '_id', // データから取得するキーを指定する
+            template: '{{image this}}'
+          },
+          {
+            key: '_id'
+          },
+          {
+            key: 'name'
+          },
+          {
+            key: 'gender',
+            template: '{{gener this}}'
+          },
+          {
+            keys: ['_id', 'name'], // keysに指定した場合はオブジェクト型になり
+            template: 'ID: {{_id}} NAME: {{name}}'
+          }
+        ]
+      }
+    ]
   }
 }
 ```

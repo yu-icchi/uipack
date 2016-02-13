@@ -59,10 +59,16 @@ SCENES_TEMPLATE = {
     ]
   },
   forms: {
-    base: {
+    save: {
       title: 'ユーザデータ入力',
       action: 'POST:/collection/user',
-      inputs: []
+      inputs: [
+        {
+          key: '_id',
+          type: 'text',
+          title: 'たいとる'
+        }
+      ]
     },
     remove: {
       title: '削除',
@@ -124,37 +130,97 @@ SCENES_TEMPLATE = {
       // テーブルの列を定義する
       rows: [
         {
-          title: 'IMAGE',
-          key: '_id', // データから取得するキーを指定する
-          template: '<miami-image data={this}></miami-image>' // riot.jsでカスタムコンポーネントを作成し使用する
+          key: '_id',
+          type: 'text', // フォームのタイプ(textの場合は省略可能にする)
+          title: 'らべる', // なければスキーマのタイトルが使用される
+          placeholder: 'プレースホルダ',
+          help: 'help message' // ヘルプを記述する。この設定が無いっていると自動的に入力フォームの下に入る
         },
         {
-          key: '_id'
-        },
-        {
-          key: 'name'
+          key: 'name',
+          type: 'textarea',
+          placeholder: '120文字', // プレースホルダ(Form内にサンプルを記述しておく)
+          help: 'おーなーまーえー' // ヘルプ
         },
         {
           key: 'gender',
-          template: '<miami-gender data={this}></miami-gender>'
+          type: 'select',
+          help: '性別指定してね',
+          label: {
+            male: '男性',
+            female: '女性'
+          }
         },
         {
-          title: 'MIXIN',
-          keys: ['_id', 'name'], // keysに指定した場合はオブジェクト型になり
-          template: 'ID: {{_id}} NAME: {{name}}'
+          key: 'type',
+          type: 'select',
+          label: {
+            0: '一般人',
+            1: 'NPC',
+            2: 'スタッフ',
+            3: '芸能人'
+          }
         },
         {
-          title: 'BUTTON',
-          template: '<miami-btn-group></miami-btn-group>'
+          key: 'age',
+          value: 100
         }
       ]
+    },
+    remove: {
+      title: '削除',
+      endpoint: 'DELETE:/collection/user',
+      inputs: []
     }
   },
-  // mock用のサンプルデータ
-  data: [
-    {_id: 'test001', name: 'name001', gender: 'male'},
-    {_id: 'test002', name: 'name002', gender: 'female'},
-    {_id: 'test003', name: 'name003', gender: 'male'},
-    {_id: 'test004', name: 'name004', gender: 'female'}
-  ]
+  view: {
+    el: '#main', // マウント先
+    components: [ // Viewの表示。コンポーネントの指定
+      {
+        component: 'search',
+        title: 'ユーザ検索をする',
+        endpoint: 'GET:/search/user/:_id',
+        inputs: []
+      },
+      {
+        component: 'table',
+        endpoint: 'GET:/user/list/:_id',
+        title: 'ユーザのテーブル情報', // キャプションの設定
+        // テーブルの列を定義する
+        rows: [
+          {
+            title: 'IMAGE',
+            key: '_id', // データから取得するキーを指定する
+            template: '{{image this}}'
+          },
+          {
+            key: '_id'
+          },
+          {
+            key: 'name'
+          },
+          {
+            key: 'gender',
+            template: '<miami-gender data={this}></miami-gender>'
+          },
+          {
+            title: 'MIXIN',
+            keys: ['_id', 'name'], // keysに指定した場合はオブジェクト型になり
+            template: 'ID: {{_id}} NAME: {{name}}'
+          },
+          {
+            title: 'BUTTON',
+            template: '<miami-btn-group></miami-btn-group>'
+          }
+        ],
+        // mock用のサンプルデータ
+        mock: [
+          {_id: 'test001', name: 'name001', gender: 'male'},
+          {_id: 'test002', name: 'name002', gender: 'female'},
+          {_id: 'test003', name: 'name003', gender: 'male'},
+          {_id: 'test004', name: 'name004', gender: 'female'}
+        ]
+      }
+    ]
+  }
 };

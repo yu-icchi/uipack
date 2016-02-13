@@ -10,25 +10,20 @@ var form = require('./index');
 require('./input.tag');
 
 <uipack-dynamicform>
-    <form onsubmit={submit}>
+    <form onsubmit={submit} onreset={reset}>
         <uipack-input each={forms} content={this}></uipack-input>
         <button class="btn btn-default" type="reset">CANCEL</button>
         <button class="btn btn-primary" type="submit">SUBMIT</button>
     </form>
     <script>
-        console.log('[uipack-dynamic_form]', opts.data);
 
+        var self = this;
         this.forms = form.createDynamicForm(opts.data.key);
 
-        this.submit = (e) => {
-            var data = {};
-            _.forEach(this.forms, (form) => {
-                if (_.isEmpty(form.name)) {
-                    return;
-                }
-                data[form.name] = this[form.name].value || '';
-            })
-            console.log(data);
-        }
+        this.submit = function(e) {
+            _.forEach(self.forms, function(form) {
+               console.log(form.id, self[form.id].value);
+            });
+        };
     </script>
 </uipack-dynamicform>
