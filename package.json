@@ -26,9 +26,9 @@
   },
   "main": "dist/uipack.js",
   "devDependencies": {
-    "babel": "^6.3.26",
+    "babel": "^6.5.2",
     "babel-core": "^6.4.0",
-    "babel-loader": "^6.2.1",
+    "babel-loader": "^6.2.4",
     "bootstrap": "^3.3.6",
     "bootstrap-webpack": "0.0.5",
     "css-loader": "^0.23.1",
@@ -38,7 +38,7 @@
     "extract-text-webpack-plugin": "^1.0.0",
     "file-loader": "^0.8.5",
     "handlebars": "^4.0.5",
-    "handlebars-template-loader": "^0.5.4",
+    "handlebars-template-loader": "^0.5.7",
     "html-loader": "^0.4.0",
     "imports-loader": "^0.6.5",
     "intelli-espower-loader": "^1.0.1",
@@ -50,12 +50,12 @@
     "mocha": "^2.3.4",
     "power-assert": "^1.2.0",
     "rimraf": "^2.5.0",
-    "riot": "^2.3.12",
-    "riotjs-loader": "^1.2.0",
+    "riot": "^2.3.17",
+    "riotjs-loader": "^3.0.0",
     "style-loader": "^0.13.0",
     "tv4": "^1.2.7",
     "url-loader": "^0.5.7",
-    "webpack": "^1.12.9",
-    "webpack-dev-server": "^1.14.0"
+    "webpack": "^1.12.14",
+    "webpack-dev-server": "^1.14.1"
   }
 }

@@ -58,24 +58,6 @@ SCENES_TEMPLATE = {
       'gender'
     ]
   },
-  forms: {
-    save: {
-      title: 'ユーザデータ入力',
-      action: 'POST:/collection/user',
-      inputs: [
-        {
-          key: '_id',
-          type: 'text',
-          title: 'たいとる'
-        }
-      ]
-    },
-    remove: {
-      title: '削除',
-      action: 'DELETE:/collection/user',
-      inputs: []
-    }
-  },
   form: {
     title: 'ユーザデータ入力',
     action: 'POST:/collection/user',
@@ -116,62 +98,6 @@ SCENES_TEMPLATE = {
         value: 100
       }
     ]
-  },
-  view: {
-    el: '#main', // jQueryの指定方法
-    search: {
-      title: 'ユーザ検索をする',
-      action: 'GET:/search/user/:_id',
-      inputs: []
-    },
-    // テープル表示させるときに配列で表示順番を決める
-    table: {
-      title: 'ユーザのテーブル情報', // キャプションの設定
-      // テーブルの列を定義する
-      rows: [
-        {
-          key: '_id',
-          type: 'text', // フォームのタイプ(textの場合は省略可能にする)
-          title: 'らべる', // なければスキーマのタイトルが使用される
-          placeholder: 'プレースホルダ',
-          help: 'help message' // ヘルプを記述する。この設定が無いっていると自動的に入力フォームの下に入る
-        },
-        {
-          key: 'name',
-          type: 'textarea',
-          placeholder: '120文字', // プレースホルダ(Form内にサンプルを記述しておく)
-          help: 'おーなーまーえー' // ヘルプ
-        },
-        {
-          key: 'gender',
-          type: 'select',
-          help: '性別指定してね',
-          label: {
-            male: '男性',
-            female: '女性'
-          }
-        },
-        {
-          key: 'type',
-          type: 'select',
-          label: {
-            0: '一般人',
-            1: 'NPC',
-            2: 'スタッフ',
-            3: '芸能人'
-          }
-        },
-        {
-          key: 'age',
-          value: 100
-        }
-      ]
-    },
-    remove: {
-      title: '削除',
-      endpoint: 'DELETE:/collection/user',
-      inputs: []
-    }
   },
   view: {
     el: '#main', // マウント先

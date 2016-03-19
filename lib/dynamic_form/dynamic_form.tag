@@ -12,8 +12,8 @@ require('./input.tag');
 <uipack-dynamicform>
     <form onsubmit={submit} onreset={reset}>
         <uipack-input each={forms} content={this}></uipack-input>
-        <button class="btn btn-default" type="reset">CANCEL</button>
-        <button class="btn btn-primary" type="submit">SUBMIT</button>
+        <button class="btn btn-default" type="reset">キャンセル</button>
+        <button class="btn btn-primary" type="submit">送信</button>
     </form>
     <script>
 

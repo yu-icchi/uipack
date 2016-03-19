@@ -12,22 +12,21 @@ WebViewのレイアウトをテンプレートの`JavaScript`で定義するだ�
 
 CSSにはBootstrap4を使用する
 
-core機能はTypeScriptを使用して開発する
+core機能はES6で開発を行う
 
 ### 作成順序
 - [ ] URIルーティングを入れる
 - [ ] メニューバーを作成する
 - [ ] 自動フォーム
+- [ ] Viewコンポーネント郡
 
 ### dependency
 
 - webpack
 - riot.js
 - tv4
-- jquery
-- stylus
 - eslint
-- ES6(ES2015)
+- babel(ES2015)
 
 viewのレイアウトcomponentにriot.jsを用いてカスタムタグを作る。
 そして、handlebarsで繰り返しなどの制御系を行う
@@ -237,6 +236,7 @@ view部分はHTMLでの表示レイアウト部分を記述する
   },
   view: {
     el: '#main', // jquery的なelementの指定の仕方
+    template: '', // テンプレートパス
     components: [
       {
         key: 'search',
